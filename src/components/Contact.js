@@ -26,13 +26,13 @@ export const Contact = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    setButtonText("Sending...");
+    // setButtonText("Sending...");
 
     formData.append("access_key", "6dd485f7-7178-44fa-9e68-a18098a8bcaf");
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
-
+    // https://getform.io/f/bkkkgdyb
     const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
@@ -43,12 +43,7 @@ export const Contact = () => {
     }).then((res) => res.json());
 
     setButtonText("Send");
-    // let result = await res.json();
     setFormDetails(formInitialDetails);
-
-    // if (res.success) {
-    //   console.log("Success", res);
-    // }
     if (res.success) {
       console.log("Success", res);
       setStatus({ succes: true, message: "Message sent successfully" });
