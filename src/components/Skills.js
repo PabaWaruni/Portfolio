@@ -3,14 +3,14 @@ import React from "react";
 
 export const Skills = () => {
   const skillsData = [
-    { name: "Java", percentage: 65 },
+    { name: "Java", percentage: 60 },
     { name: "Python", percentage: 60 },
-    { name: "C", percentage: 60 },
-    { name: "HTML/CSS", percentage: 85 },
+    { name: "C", percentage: 50 },
+    { name: "HTML/CSS", percentage: 80 },
     { name: "ReactJs", percentage: 60 },
-    { name: "Javascript", percentage: 65 },
-    { name: "MySQL", percentage: 70 },
-    { name: "PHP", percentage: 70 },
+    { name: "Javascript", percentage: 60 },
+    { name: "MySQL", percentage: 60 },
+    { name: "PHP", percentage: 60 },
     { name: "UI/UX", percentage: 80 },
   ];
 

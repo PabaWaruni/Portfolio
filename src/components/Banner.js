@@ -17,7 +17,7 @@ export const Banner = () => {
   const [text, setText] = useState("");
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const [index, setIndex] = useState(1);
-  const toRotate = ["Mobile/Web Developer", "UI/UX Designer"];
+  const toRotate = ["Intern Software Engineer"];
   const period = 1000;
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export const Banner = () => {
                       <span
                         className="txt-rotate"
                         dataPeriod="100"
-                        data-rotate='[ "Mobile/Web Developer","UI/UX Designer" ]'
+                        data-rotate='[ "Intern Software Engineer" ]'
                       >
                         <span className="wrap">{text}</span>
                       </span>
