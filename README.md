@@ -1,74 +1,114 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# Paba Karunarathne - Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio for **Paba Karunarathne** - Junior Business Analyst, Project
+Coordinator, with a software engineering background.
 
-## Available Scripts
+Built with React (Create React App) and hand-written CSS. No UI framework.
 
-In the project directory, you can run:
+## Getting started
 
-### `npm start`
+```bash
+npm install
+npm start        # http://localhost:3000
+npm run build    # production bundle in ./build
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Editing the content
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Almost everything on the page is driven by a single file:
 
-### `npm test`
+```
+src/data/content.js
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It is grounded in `Paba_Karunarathne_CV.pdf` but written in portfolio voice, not
+CV bullets. When the CV changes, update that file and the site follows.
 
-### `npm run build`
+| Export | What it drives |
+| --- | --- |
+| `profile` | Name, role, hero headline, summary, about copy, links, CV path |
+| `stats` | The four-up strip under the hero (qualitative - no invented figures) |
+| `processSteps` | Discover / Define / Deliver / Verify in **Approach** |
+| `workedExample` | The user story + acceptance criteria artifact card |
+| `skillGroups` | The five capability cards |
+| `tools` | The scrolling tool marquee |
+| `experience` | Timeline roles, each with an `impact` headline and 3 points |
+| `featuredProject` | The Leaf Sense case study: problem, contributions and system flow |
+| `education`, `highlights`, `languages` | About sidebar |
+| `navLinks` | Navbar, drawer, footer and scroll-spy |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Keep role `points` to about three each - the section is a pitch, not a CV dump.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+public/
+  Paba_Karunarathne_CV.pdf   downloadable CV (served from the site)
+src/
+  App.css                    design tokens + all component styles
+  data/content.js            all site content
+  hooks/useReveal.js         scroll reveal + active-section tracking
+  components/
+    NavBar.js  Hero.js   About.js    Experience.js
+    Approach.js  Skills.js  Work.js  Contact.js
+    Footer.js  Icons.js
+```
 
-### `npm run eject`
+## Contact form
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Submissions go to [Web3Forms](https://web3forms.com). The access key is a public
+client-side key. To use a different one without editing the source, add:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+REACT_APP_WEB3FORMS_KEY=your-key-here
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+to a `.env.local` file.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Hero portrait
 
-## Learn More
+`src/assets/img/portrait.jpg` is the source photo cropped 3:4 (headroom down to
+mid-thigh, centred on the subject) and downscaled to 1000x1333 at quality 86
+(~141 KB). It keeps its background and sits in a framed card.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Regenerate from a new photo with `ImageOps.exif_transpose`, the same crop ratios,
+then `resize((1000, 1333), LANCZOS)`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Design
 
-### Code Splitting
+White ground (`#ffffff`) with a single violet accent (`#7c3aed`). Neutrals carry a
+faint violet tint (`--surface`, `--line`) so the palette reads as one family
+rather than a hue dropped onto grey. All colours, radii and easing live as CSS
+custom properties in the `:root` block at the top of `src/App.css` - swapping that
+one block flips the whole site's theme.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Every text/background pair clears WCAG AA; the weakest is muted text on the alt
+band at 5.12:1. Note that on white `--accent-bright` is the *darker*, stronger
+emphasis colour rather than a lighter one - keep that inverted relationship if you
+retheme. Violet-500 (`#8b5cf6`) is deliberately avoided: at 4.23:1 it fails AA for
+text on white.
 
-### Analyzing the Bundle Size
+The `.grad` class applies the accent gradient to a phrase inside a heading - used
+sparingly, once per section at most.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The hero portrait sits in a rounded card with a hairline border, soft shadow and
+a bottom gradient (`.portrait::after`) that fades it into the page.
 
-### Making a Progressive Web App
+Respects `prefers-reduced-motion`: reveals resolve immediately and the tool
+marquee stops animating and becomes scrollable instead.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Sections
 
-### Advanced Configuration
+`Hero` -> `About` (01) -> `Experience` (02) -> `Approach` (03) -> `Skills` (04)
+-> `Work` (05) -> `Contact` (06)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Approach** is the differentiator: it shows a worked requirement - a real user
+story with Given/When/Then acceptance criteria and an explicit out-of-scope line -
+rather than just listing "User Stories" as a skill. Swap `workedExample` for a
+genuine artifact from a project whenever you have one to share.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# Portfolio
->>>>>>> 7f818256bd4db997d41b398a84cb2d470db01bd7
+**Work** is deliberately a single case study. The earlier university coursework
+(Android, PHP, React practice builds and Figma UI files) was removed - basic
+first-year work dilutes a BA/PM pitch - and is now a one-line pointer to GitHub.
+To feature another project, add a second entry alongside `featuredProject` rather
+than reinstating a thumbnail grid.

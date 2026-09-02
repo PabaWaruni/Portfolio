@@ -1,172 +1,115 @@
-import { useState, useEffect } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import logo from "../assets/img/logo.png";
-import { BrowserRouter as Router } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { navLinks, profile } from "../data/content";
+import { useActiveSection } from "../hooks/useReveal";
+import { DownloadIcon, MenuIcon, CloseIcon } from "./Icons";
 
 export const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false); // Track sidebar visibility
-  const [activeLink, setActiveLink] = useState("home"); // Track the active link
-  const [isMobile, setIsMobile] = useState(false); // Track if the view is mobile
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ids = useMemo(() => navLinks.map((l) => l.id), []);
+  const active = useActiveSection(ids);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Detect if the viewport is mobile or tablet size
-    };
-
-    window.addEventListener("scroll", onScroll);
-    window.addEventListener("resize", handleResize);
-
-    // Initial check for mobile/tablet view
-    handleResize();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", handleResize);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleToggle = () => {
-    setShowSidebar(!showSidebar); // Toggle sidebar visibility
-  };
-
-  const closeSidebar = () => {
-    setShowSidebar(false); // Close sidebar
-  };
-
-  const onUpdateActiveLink = (link) => {
-    setActiveLink(link); // Update active link when a link is clicked
-    setShowSidebar(false); // Close sidebar after clicking a link
-  };
+  // Lock body scroll while the mobile drawer is open, and close it on Escape.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
 
   return (
-    <Router>
-      <Navbar expand="md" className={`${scrolled ? "scrolled" : ""}`}>
-        <Container>
-          <Navbar.Brand href="/">
-            <img src={logo} alt="Logo" />
-          </Navbar.Brand>
+    <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+      <div className="container nav__inner">
+        <a href="#top" className="nav__brand" aria-label={`${profile.name} - home`}>
+          <span className="nav__brandText">
+            <strong>{profile.name}</strong>
+            <span>{profile.role}</span>
+          </span>
+        </a>
 
-          {/* Conditionally render Toggle and Sidebar for Mobile/Tablet view */}
-          {isMobile ? (
-            <>
-              <button className="custom-toggler" onClick={handleToggle}>
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              {/* Sidebar */}
-              <div className={`sidebar ${showSidebar ? "open" : ""}`}>
-                <button className="close-btn" onClick={closeSidebar}>
-                  &times;
-                </button>
-                <ul>
-                  <li>
-                    <a
-                      href="#home"
-                      onClick={() => onUpdateActiveLink("home")}
-                      className={activeLink === "home" ? "active" : ""}
-                    >
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#skills"
-                      onClick={() => onUpdateActiveLink("skills")}
-                      className={activeLink === "skills" ? "active" : ""}
-                    >
-                      Skills
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#projects"
-                      onClick={() => onUpdateActiveLink("projects")}
-                      className={activeLink === "projects" ? "active" : ""}
-                    >
-                      Projects
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#connect"
-                      onClick={() => onUpdateActiveLink("aboutMe")}
-                      className={activeLink === "aboutMe" ? "active" : ""}
-                    >
-                      Contact
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://drive.google.com/uc?export=download&id=1tphcNJnQrnwPjkH-wyFy6FTGu0HPWvbs">
-                      <button className="vvd">
-                        <span>Download My CV</span>
-                      </button>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </>
-          ) : (
-            // For Desktop View: Show normal Navbar Links
-            <Nav className="ms-auto">
-              <Nav.Link
-                href="#home"
-                className={
-                  activeLink === "home" ? "active navbar-link" : "navbar-link"
-                }
-                onClick={() => onUpdateActiveLink("home")}
+        <nav className="nav__links" aria-label="Sections">
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className={active === link.id ? "is-active" : ""}
+              aria-current={active === link.id ? "true" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav__actions">
+          <a className="btn btn--ghost btn--sm" href={profile.cv} download>
+            <DownloadIcon width={16} height={16} />
+            <span>CV</span>
+          </a>
+          <button
+            type="button"
+            className="nav__toggle"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+          >
+            <MenuIcon />
+          </button>
+        </div>
+      </div>
+
+      <div
+        className={`drawer ${menuOpen ? "drawer--open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!menuOpen}
+      >
+        <div className="drawer__scrim" onClick={() => setMenuOpen(false)} />
+        <div className="drawer__panel">
+          <button
+            type="button"
+            className="drawer__close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            <CloseIcon />
+          </button>
+          <nav className="drawer__links">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={() => setMenuOpen(false)}
+                className={active === link.id ? "is-active" : ""}
+                tabIndex={menuOpen ? 0 : -1}
               >
-                Home
-              </Nav.Link>
-              <Nav.Link
-                href="#skills"
-                className={
-                  activeLink === "skills" ? "active navbar-link" : "navbar-link"
-                }
-                onClick={() => onUpdateActiveLink("skills")}
-              >
-                Skills
-              </Nav.Link>
-              <Nav.Link
-                href="#projects"
-                className={
-                  activeLink === "projects"
-                    ? "active navbar-link"
-                    : "navbar-link"
-                }
-                onClick={() => onUpdateActiveLink("projects")}
-              >
-                Projects
-              </Nav.Link>
-              <Nav.Link
-                href="#connect"
-                className={
-                  activeLink === "aboutMe"
-                    ? "active navbar-link"
-                    : "navbar-link"
-                }
-                onClick={() => onUpdateActiveLink("aboutMe")}
-              >
-                Contact
-              </Nav.Link>
-              <span className="navbar-text">
-                <a href="https://drive.google.com/uc?export=download&id=1tphcNJnQrnwPjkH-wyFy6FTGu0HPWvbs">
-                  <button className="vvd">
-                    <span>Download My CV</span>
-                  </button>
-                </a>
-              </span>
-            </Nav>
-          )}
-        </Container>
-      </Navbar>
-    </Router>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <a
+            className="btn btn--primary"
+            href={profile.cv}
+            download
+            onClick={() => setMenuOpen(false)}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            <DownloadIcon width={18} height={18} />
+            <span>Download CV</span>
+          </a>
+        </div>
+      </div>
+    </header>
   );
 };
