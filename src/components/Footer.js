@@ -1,37 +1,38 @@
-import { Container, Row, Col } from "react-bootstrap";
-import logo from "../assets/img/logo.png";
-import navIcon1 from "../assets/img/nav-icon1.svg";
-import navIcon2 from "../assets/img/nav-icon2.svg";
-import navIcon3 from "../assets/img/nav-icon3.svg";
-import navIcon4 from "../assets/img/nav-icon4.svg";
+import { profile, navLinks } from "../data/content";
+import { LinkedInIcon, GitHubIcon, MailIcon } from "./Icons";
 
-export const Footer = () => {
-  return (
-    <footer className="footer">
-      <Container>
-        <Row className="align-items-center">
-          <Col size={12} sm={6}>
-            <img src={logo} alt="Logo" />
-          </Col>
-          <Col size={12} sm={6} className="text-center text-sm-end">
-            <div className="social-icon">
-              <a href="https://www.linkedin.com/in/paba-karunarathne-3aaa402a4/">
-                <img src={navIcon1} alt="Icon" />
-              </a>
-              <a href="https://www.facebook.com/paba.karunarathne/">
-                <img src={navIcon2} alt="Icon" />
-              </a>
-              <a href="https://www.behance.net/pabakarunarathne">
-                <img src={navIcon3} alt="Icon" />
-              </a>
-              <a href="https://github.com/PabaWaruni">
-                <img src={navIcon4} alt="Icon" />
-              </a>
-            </div>
-            <p>Copyright 2024. All Rights Reserved</p>
-          </Col>
-        </Row>
-      </Container>
-    </footer>
-  );
-};
+export const Footer = () => (
+  <footer className="footer">
+    <div className="container footer__inner">
+      <div className="footer__brand">
+        <p className="footer__name">{profile.name}</p>
+        <p className="footer__role">{profile.role}</p>
+      </div>
+
+      <nav className="footer__links" aria-label="Footer">
+        {navLinks.map((l) => (
+          <a key={l.id} href={`#${l.id}`}>
+            {l.label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="footer__social">
+        <a href={`mailto:${profile.email}`} aria-label="Email">
+          <MailIcon width={18} height={18} />
+        </a>
+        <a href={profile.links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <LinkedInIcon width={18} height={18} />
+        </a>
+        <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+          <GitHubIcon width={18} height={18} />
+        </a>
+      </div>
+    </div>
+
+    <div className="container footer__base">
+      <p>&copy; {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+);

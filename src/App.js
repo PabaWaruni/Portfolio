@@ -1,20 +1,28 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { NavBar } from "./components/NavBar";
-import { Banner } from "./components/Banner";
+import { Hero } from "./components/Hero";
+import { About } from "./components/About";
+import { Experience } from "./components/Experience";
+import { Approach } from "./components/Approach";
 import { Skills } from "./components/Skills";
-import { Projects } from "./components/Projects";
+import { Work } from "./components/Work";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
 function App() {
   return (
     <div className="App">
+      <a className="skipLink" href="#about">Skip to content</a>
       <NavBar />
-      <Banner />
-      <Skills />
-      <Projects />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Approach />
+        <Skills />
+        <Work />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );
