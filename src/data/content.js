@@ -2,6 +2,12 @@
 // Grounded in Paba_Karunarathne_CV.pdf, but written in portfolio voice rather
 // than CV bullet-speak. Update here when the CV changes.
 
+import nbqsaTeam from "../assets/img/nbqsa-team.jpg";
+import nbqsaStage from "../assets/img/nbqsa-stage.jpg";
+import flashTeam from "../assets/img/flash-team.jpg";
+import nbqsaWinners from "../assets/img/nbqsa-winners.jpg";
+import flashFinalists from "../assets/img/flash-finalists.jpg";
+
 export const profile = {
   name: "Paba Karunarathne",
   role: "Business Analyst & Project Coordinator",
@@ -54,25 +60,6 @@ export const processSteps = [
     body: "Test against the criteria we agreed. Document what fails, confirm the fix holds, then call it done.",
   },
 ];
-
-// A worked example of how I write a requirement, using Leaf Sense as the subject.
-export const workedExample = {
-  label: "Worked example",
-  context: "How I write a requirement - using Leaf Sense as the subject",
-  story: {
-    role: "a tea collection officer",
-    want: "an objective quality grade for each batch at intake",
-    soThat: "payment reflects measured quality rather than a subjective visual call",
-  },
-  criteria: [
-    { k: "Given", v: "a leaf sample is presented at the collection point" },
-    { k: "When", v: "the officer captures it through the evaluation unit" },
-    { k: "Then", v: "a quality grade is returned and shown to the officer" },
-    { k: "And", v: "the reading is stored against the supplier and batch record" },
-    { k: "And", v: "any manual override is captured with a recorded reason" },
-  ],
-  outOfScope: "Supplier payment calculation - handled downstream by procurement.",
-};
 
 export const skillGroups = [
   {
@@ -188,25 +175,33 @@ export const experience = [
   },
 ];
 
-export const featuredProject = {
-  title: "Leaf Sense",
-  subtitle: "Smart Procurement System for Fresh Tea Leaf Evaluation",
-  problem:
-    "Fresh tea leaf was graded by eye at the collection point, so two officers could look at the same batch and price it differently. Suppliers had no way to challenge a grade, and procurement had no record to audit.",
-  role: "Software and requirements contributor across the full system",
-  contributions: [
-    "Worked the whole path - image capture, environmental sensors, cloud services, backend APIs and the reporting dashboard.",
-    "Drove requirements thinking through the workflow: what gets captured, how it is evaluated, and what procurement actually needs in order to decide.",
-    "Sat across an architecture spanning Raspberry Pi, Python, FastAPI, AWS, machine learning components and a Next.js dashboard.",
-  ],
-  flow: [
-    { step: "Capture", body: "Leaf imaged at intake, with environmental sensor readings recorded alongside it." },
-    { step: "Evaluate", body: "Image processing and ML components grade the batch against consistent criteria." },
-    { step: "Report", body: "Grades and readings surface in a dashboard, stored against supplier and batch." },
-    { step: "Decide", body: "Procurement prices on measured quality, with an auditable record behind it." },
-  ],
-  stack: ["Raspberry Pi", "Python", "FastAPI", "AWS", "Machine Learning", "Next.js"],
-};
+export const gallery = [
+  {
+    src: nbqsaTeam,
+    alt: "The Leaf Sense team holding the bronze trophy and certificate at the National ICT Awards NBQSA 2026",
+    caption: "Team Leaf Sense with the Bronze Award - National ICT Awards, NBQSA 2026",
+  },
+  {
+    src: nbqsaStage,
+    alt: "The Leaf Sense team on stage receiving the trophy and certificate at the National ICT Awards NBQSA 2026",
+    caption: "On stage receiving the award - National ICT Awards, NBQSA 2026",
+  },
+  {
+    src: nbqsaWinners,
+    alt: "All award recipients gathered in the ballroom at the National ICT Awards NBQSA 2026",
+    caption: "All award recipients - National ICT Awards, NBQSA 2026",
+  },
+  {
+    src: flashTeam,
+    alt: "Five team members on stage in front of the Flash Early Warning Innovation Challenge 2025 screen",
+    caption: "Final pitch event - Early Warning Innovation Challenge, FLASH 2025",
+  },
+  {
+    src: flashFinalists,
+    alt: "Group photo of finalists, judges and organisers at the Flash Early Warning Innovation Challenge 2025",
+    caption: "Finalists, judges and organisers - FLASH 2025, Colombo",
+  },
+];
 
 export const education = [
   {
@@ -225,9 +220,9 @@ export const education = [
 
 export const highlights = [
   {
-    title: "Selected for the Winners Cycle",
-    event: "NBQSA 2026",
-    org: "Leaf Sense advanced from the second round",
+    title: "Bronze Award - Tertiary Student Project (Technology)",
+    event: "National ICT Awards, NBQSA 2026",
+    org: "Leaf Sense - selected to represent Sri Lanka at APICTA",
   },
   {
     title: "2nd Place - Autonomous Robot Game",
@@ -253,6 +248,6 @@ export const navLinks = [
   { id: "experience", label: "Experience" },
   { id: "approach", label: "Approach" },
   { id: "skills", label: "Skills" },
-  { id: "work", label: "Work" },
+  { id: "gallery", label: "Gallery" },
   { id: "contact", label: "Contact" },
 ];

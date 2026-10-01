@@ -29,11 +29,10 @@ CV bullets. When the CV changes, update that file and the site follows.
 | `profile` | Name, role, hero headline, summary, about copy, links, CV path |
 | `stats` | The four-up strip under the hero (qualitative - no invented figures) |
 | `processSteps` | Discover / Define / Deliver / Verify in **Approach** |
-| `workedExample` | The user story + acceptance criteria artifact card |
 | `skillGroups` | The five capability cards |
 | `tools` | The scrolling tool marquee |
 | `experience` | Timeline roles, each with an `impact` headline and 3 points |
-| `featuredProject` | The Leaf Sense case study: problem, contributions and system flow |
+| `gallery` | Photos in the **Gallery** section, each with alt text and a caption |
 | `education`, `highlights`, `languages` | About sidebar |
 | `navLinks` | Navbar, drawer, footer and scroll-spy |
 
@@ -50,7 +49,7 @@ src/
   hooks/useReveal.js         scroll reveal + active-section tracking
   components/
     NavBar.js  Hero.js   About.js    Experience.js
-    Approach.js  Skills.js  Work.js  Contact.js
+    Approach.js  Skills.js  Gallery.js  Contact.js
     Footer.js  Icons.js
 ```
 
@@ -100,15 +99,8 @@ marquee stops animating and becomes scrollable instead.
 ### Sections
 
 `Hero` -> `About` (01) -> `Experience` (02) -> `Approach` (03) -> `Skills` (04)
--> `Work` (05) -> `Contact` (06)
+-> `Gallery` (05) -> `Contact` (06)
 
-**Approach** is the differentiator: it shows a worked requirement - a real user
-story with Given/When/Then acceptance criteria and an explicit out-of-scope line -
-rather than just listing "User Stories" as a skill. Swap `workedExample` for a
-genuine artifact from a project whenever you have one to share.
-
-**Work** is deliberately a single case study. The earlier university coursework
-(Android, PHP, React practice builds and Figma UI files) was removed - basic
-first-year work dilutes a BA/PM pitch - and is now a one-line pointer to GitHub.
-To feature another project, add a second entry alongside `featuredProject` rather
-than reinstating a thumbnail grid.
+**Gallery** holds event photos (NBQSA 2026, FLASH 2025). Add an entry to
+`gallery` with the image, alt text and caption. Every photo is cropped to the
+same 4:3 tile, three to a row.

@@ -44,7 +44,7 @@ export const Hero = () => {
           </div>
 
           <div className="hero__cta">
-            <a className="btn btn--primary" href="#work">
+            <a className="btn btn--primary" href="#experience">
               <span>View my work</span>
               <ArrowIcon width={18} height={18} />
             </a>

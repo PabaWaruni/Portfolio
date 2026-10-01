@@ -2,10 +2,9 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 import {
   processSteps,
-  workedExample,
   experience,
   skillGroups,
-  featuredProject,
+  gallery,
   profile,
 } from "./data/content";
 
@@ -18,22 +17,16 @@ test("renders the name and the pitch headline in the hero", () => {
   expect(screen.getAllByText(/paba karunarathne/i).length).toBeGreaterThan(0);
 });
 
-test("renders the approach section with a worked requirement", () => {
+test("renders the approach section with every process step", () => {
   const { container } = render(<App />);
   expect(container.querySelectorAll(".process__step")).toHaveLength(
     processSteps.length
-  );
-  expect(container.querySelector(".artifact__story").textContent).toMatch(
-    new RegExp(workedExample.story.want, "i")
-  );
-  expect(container.querySelectorAll(".artifact__criteria li")).toHaveLength(
-    workedExample.criteria.length
   );
 });
 
 test("renders every main section", () => {
   const { container } = render(<App />);
-  ["about", "experience", "approach", "skills", "work", "contact"].forEach((id) => {
+  ["about", "experience", "approach", "skills", "gallery", "contact"].forEach((id) => {
     expect(container.querySelector(`#${id}`)).toBeTruthy();
   });
 });
@@ -56,16 +49,14 @@ test("renders every capability group", () => {
   );
 });
 
-test("renders the case study with its system flow", () => {
+test("renders every gallery photo with its caption", () => {
   const { container } = render(<App />);
-  expect(screen.getByText(featuredProject.title)).toBeInTheDocument();
-  expect(screen.getByText(featuredProject.problem)).toBeInTheDocument();
-  expect(container.querySelectorAll(".feature__step")).toHaveLength(
-    featuredProject.flow.length
+  expect(container.querySelectorAll(".gallery__item")).toHaveLength(
+    gallery.length
   );
-  // the university coursework grid should be gone
-  expect(container.querySelector(".projCard")).toBeNull();
-  expect(container.querySelector(".tabs")).toBeNull();
+  gallery.forEach((g) => {
+    expect(screen.getByText(g.caption)).toBeInTheDocument();
+  });
 });
 
 test("exposes the CV download and contact email", () => {

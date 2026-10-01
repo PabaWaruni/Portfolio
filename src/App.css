@@ -655,7 +655,6 @@ svg {
 /* Blocks that sit directly under a heading (no lead paragraph) need the
    breathing room the lead would otherwise have provided. */
 .about,
-.feature,
 .contact {
   margin-top: 40px;
 }
@@ -958,163 +957,28 @@ svg {
   margin-bottom: 18px;
 }
 
-/* ---------------- featured project ---------------- */
-.feature {
+/* ---------------- gallery ---------------- */
+.gallery {
+  margin-top: 40px;
+  list-style: none;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-  gap: 40px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  margin-bottom: 56px;
-  position: relative;
-  overflow: hidden;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
-.feature::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
-}
-
-.feature__kicker {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.feature__title {
-  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
-  margin-bottom: 20px;
-}
-.feature__points {
-  margin-bottom: 24px;
-  display: grid;
-  gap: 12px;
-}
-.feature__points li {
-  display: flex;
-  gap: 12px;
-  color: var(--text-2);
-  font-size: 0.94rem;
-}
-.feature__points svg {
-  color: var(--accent);
-  margin-top: 3px;
-}
-
-.feature__aside {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.feature__flowLabel {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-3);
-  margin-bottom: 14px;
-}
-.feature__flow {
+.gallery__item img {
+  display: block;
   width: 100%;
-  display: grid;
-  gap: 12px;
-}
-.feature__step {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 15px 18px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: var(--bg-alt);
-  position: relative;
+  box-shadow: var(--shadow);
 }
-.feature__step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  left: 32px;
-  bottom: -13px;
-  width: 1px;
-  height: 13px;
-  background: var(--line-strong);
-}
-.feature__stepNo {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-line);
-  color: var(--accent-bright);
-  font-size: 0.8rem;
-  font-weight: 700;
-  flex: none;
-}
-.feature__stepLabel {
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin-bottom: 3px;
-}
-.feature__stepBody {
-  font-size: 0.82rem;
+.gallery__item figcaption {
+  margin-top: 12px;
+  font-size: 0.85rem;
   color: var(--text-3);
-  line-height: 1.5;
-}
-
-/* problem statement + role line */
-.feature__problem {
-  border-left: 2px solid var(--accent);
-  padding-left: 16px;
-  margin-bottom: 20px;
-}
-.feature__problemLabel {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-.feature__problem p:last-child {
-  color: var(--text-2);
-  max-width: 62ch;
-}
-.feature__roleLine {
-  font-size: 0.87rem;
-  color: var(--text-3);
-  margin-bottom: 18px;
-  font-style: italic;
-}
-
-/* quiet pointer to the older coursework, without giving it a gallery */
-.work__more {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-  font-size: 0.9rem;
-  color: var(--text-3);
-}
-.work__more a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--accent-bright);
-  font-weight: 500;
-}
-.work__more a:hover {
-  text-decoration: underline;
-}
-.work__more a svg {
-  transition: transform 0.2s var(--ease);
-}
-.work__more a:hover svg {
-  transform: translateX(3px);
+  text-align: center;
 }
 
 /* ---------------- contact ---------------- */
@@ -1315,7 +1179,7 @@ svg {
   color: var(--accent-bright);
 }
 
-/* ---------------- approach: process + artifact ---------------- */
+/* ---------------- approach: process ---------------- */
 .process {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1324,7 +1188,6 @@ svg {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  margin-bottom: 44px;
 }
 .process__step {
   background: var(--bg);
@@ -1350,145 +1213,6 @@ svg {
 .process__body {
   color: var(--text-3);
   font-size: 0.88rem;
-}
-
-/* The requirement artifact - the differentiator on the page, so it is the one
-   element allowed to carry full accent weight. */
-.artifact {
-  position: relative;
-  border: 1px solid var(--accent-line);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, #f6f1ff 0%, #fdfcff 46%);
-  overflow: hidden;
-  box-shadow: 0 24px 60px -30px rgba(76, 29, 149, 0.45);
-}
-.artifact::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--grad-a), var(--grad-b));
-}
-
-.artifact__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 14px;
-  padding: 18px 26px;
-  border-bottom: 1px solid var(--accent-line);
-  background: linear-gradient(
-    90deg,
-    rgba(124, 58, 237, 0.1),
-    rgba(162, 28, 175, 0.05)
-  );
-}
-.artifact__tag {
-  padding: 5px 13px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--grad-a), var(--grad-b));
-  color: var(--on-accent);
-  font-size: 0.71rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow: 0 6px 14px -6px rgba(124, 58, 237, 0.7);
-}
-.artifact__context {
-  font-size: 0.86rem;
-  color: var(--accent-bright);
-  font-weight: 500;
-}
-
-.artifact__body {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-}
-.artifact__block {
-  padding: 26px;
-}
-.artifact__block + .artifact__block {
-  border-left: 1px solid var(--accent-line);
-  background: rgba(255, 255, 255, 0.55);
-}
-.artifact__blockLabel {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--accent-bright);
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.artifact__story {
-  font-size: 1.04rem;
-  line-height: 2.1;
-  color: var(--text);
-  font-weight: 500;
-}
-.artifact__key {
-  display: inline-block;
-  min-width: 78px;
-  margin-right: 8px;
-  padding: 2px 10px;
-  border-radius: 7px;
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-line);
-  color: var(--accent-bright);
-  font-weight: 700;
-  font-size: 0.7rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  vertical-align: 2px;
-}
-
-.artifact__criteria li {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  font-size: 0.94rem;
-  color: var(--text-2);
-  border-bottom: 1px dashed var(--accent-line);
-}
-.artifact__criteria li:last-child {
-  border-bottom: 0;
-}
-.artifact__gwt {
-  min-width: 62px;
-  text-align: center;
-  padding: 3px 8px;
-  border-radius: 7px;
-  height: fit-content;
-  font-weight: 700;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border: 1px solid var(--accent-line);
-  background: var(--accent-soft);
-  color: var(--accent-bright);
-}
-/* the outcome lines carry the weight - they are what gets tested */
-.artifact__gwt--then,
-.artifact__gwt--and {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
-}
-.artifact__criteria li:has(.artifact__gwt--then) {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.artifact__scope {
-  padding: 15px 26px;
-  border-top: 1px solid var(--accent-line);
-  background: rgba(124, 58, 237, 0.06);
-  font-size: 0.87rem;
-  color: var(--text-2);
-}
-.artifact__scope strong {
-  color: var(--accent-bright);
 }
 
 /* ---------------- impact line ---------------- */
@@ -1580,22 +1304,14 @@ svg {
   .process {
     grid-template-columns: repeat(2, 1fr);
   }
-  .artifact__body {
-    grid-template-columns: 1fr;
-  }
-  .artifact__block + .artifact__block {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-  .feature {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
 }
 
 @media (max-width: 860px) {
   .nav__links {
     display: none;
+  }
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .nav__toggle {
     display: grid;
@@ -1613,6 +1329,9 @@ svg {
   .container {
     padding: 0 18px;
   }
+  .gallery {
+    grid-template-columns: 1fr;
+  }
   .section {
     padding: 72px 0;
   }
@@ -1622,16 +1341,6 @@ svg {
   .about__facts,
   .process {
     grid-template-columns: 1fr;
-  }
-  .artifact__block {
-    padding: 22px 20px;
-  }
-  .artifact__head,
-  .artifact__scope {
-    padding-inline: 20px;
-  }
-  .feature {
-    padding: 26px 22px;
   }
   .contact__form {
     grid-template-columns: 1fr;
